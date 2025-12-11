@@ -13,7 +13,7 @@ export const searchStock = (identifier) => {
 // חיפוש מניה לפי מחיר
 export function filterStocksByPrice(givenPrice, above) {
   if (typeof givenPrice === "number") {
-    if (above === true) {
+    if (above === "true") {
       let match_stock = stockMarket.stocks.filter(
         (stock) => stock.currentPrice > givenPrice
       );
@@ -21,7 +21,7 @@ export function filterStocksByPrice(givenPrice, above) {
         console.log("stock not found");
       }
       return match_stock;
-    } else if (above === false) {
+    } else if (above === "false") {
       let match_stock = stockMarket.stocks.filter(
         (stock) => stock.currentPrice < givenPrice
       );
@@ -49,8 +49,8 @@ export function BuySellStock(operation, identifier) {
         stock.category === stockMarket.stocks[find_stock].category &&
         stock.id !== stockMarket.stocks[find_stock].id
       ) {
-        stockMarket.lastUpdated=Date.now()
-        stock.previousPrices.push(stock.currentPrice)
+        stockMarket.lastUpdated = Date.now();
+        stock.previousPrices.push(stock.currentPrice);
         stock.currentPrice += (stock.currentPrice / 100) * 1;
       }
     });
@@ -63,19 +63,19 @@ export function BuySellStock(operation, identifier) {
         stock.category === stockMarket.stocks[find_stock].category &&
         stock.id !== stockMarket.stocks[find_stock].id
       ) {
-        stockMarket.lastUpdated=Date.now()
-        stock.previousPrices.push(stock.currentPrice)
+        stockMarket.lastUpdated = Date.now();
+        stock.previousPrices.push(stock.currentPrice);
         stock.currentPrice -= (stock.currentPrice / 100) * 1;
-      } 
-    });
-  }else if (
-        operation !== "sell" ||
-        operation !== "SELL" ||
-        operation !== "buy" ||
-        operation !== "BUY"
-      ) {
-        console.log("operation not allowed");
       }
+    });
+  } else if (
+    operation !== "sell" ||
+    operation !== "SELL" ||
+    operation !== "buy" ||
+    operation !== "BUY"
+  ) {
+    console.log("operation not allowed");
+  }
 }
 
 // ביצוע פעולות על מניה
@@ -86,4 +86,3 @@ export function OperateOnStock(operation, identifier) {
     BuySellStock(operation, identifier);
   }
 }
-
